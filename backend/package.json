@@ -1,0 +1,9 @@
+{
+  "name": "manager-evenimente",
+  "private": true,
+  "dependencies": {
+    "fullcalendar": "^3.6.2",
+    "jquery-form-validator": "^2.3.77",
+    "toastr": "^2.1.2"
+  }
+}
