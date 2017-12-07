@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'jogging_times#index'
+
+  namespace :authentication do
+    get '', action: :login, as: :login
+    post '', action: :login_post, as: :login_post
+    delete '', action: :logout, as: :logout
+  end
 end

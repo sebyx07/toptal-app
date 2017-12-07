@@ -1,0 +1,3 @@
+class JoggingTimesController < ApplicationController
+
+end

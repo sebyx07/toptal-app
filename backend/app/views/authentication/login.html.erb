@@ -1,0 +1,22 @@
+<div class="row authentication">
+  <div class="col s12 m4 offset-m4">
+    <h3>Login Jogging</h3>
+
+    <%= form_tag authentication_login_post_path do %>
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="username">Username</label>
+            <%= text_field_tag :username, @username, class: 'validate', required: true%>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="password">Password</label>
+            <%= password_field_tag :password, nil, class: 'validate', required: true%>
+          </div>
+        </div>
+        <button class="waves-effect waves-light btn right">Login</button>
+    <% end %>
+  </div>
+</div>
