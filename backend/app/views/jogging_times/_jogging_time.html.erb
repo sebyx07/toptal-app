@@ -1,0 +1,31 @@
+<li class="collection-item row">
+  <%= form_tag jogging_time_path(jogging_time), class: 'auto-submit', method: :put do %>
+      <div class="input-field col m2">
+        <label for="date">Date</label>
+        <%= text_field_tag :date, jogging_time.created_at.strftime('%d %B, %Y'), class: 'datepicker' %>
+      </div>
+      <div class="input-field col m1">
+        <label for="hour">Time</label>
+        <%= text_field_tag :hour, jogging_time.created_at.strftime('%H:%M'), class: 'timepicker' %>
+      </div>
+      <div class="input-field col m1">
+        <label for="distance">Distance</label>
+        <%= number_field_tag :distance, jogging_time.distance %>
+      </div>
+      <div class="input-field col m1">
+        <label for="time">Duration</label>
+        <%= number_field_tag :time, jogging_time.time %>
+      </div>
+  <% end %>
+
+  <div class="col m2">
+    <p>
+      Average Speed: <b><%= jogging_time.average_speed %></b>
+    </p>
+  </div>
+
+  <div class="col m2 right">
+    <%= link_to 'Delete', jogging_time_path(jogging_time), class: 'waves-effect waves-light btn red',
+                method: :delete, data: {turbolinks: false, remote: true, callback: 'deleteListItem', message: 'Deleted!'} %>
+  </div>
+</li>

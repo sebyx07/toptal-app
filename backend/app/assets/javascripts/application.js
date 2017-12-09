@@ -12,4 +12,12 @@
 //
 //= require rails-ujs
 //= require turbolinks
-//= require_tree .
+//= require jquery
+//= require turbolinks
+//= require materialize-sprockets
+//= require toastr/toastr
+//= require ./page-load
+//= require moment/min/moment.min
+//= require jquery-form-validator/form-validator/jquery.form-validator
+//= require jquery-form-validator/form-validator/html5
+//= require_tree ./app

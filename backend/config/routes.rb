@@ -6,4 +6,8 @@ Rails.application.routes.draw do
     post '', action: :login_post, as: :login_post
     delete '', action: :logout, as: :logout
   end
+
+  resources :jogging_times, only: [:update, :create, :destroy] do
+
+  end
 end

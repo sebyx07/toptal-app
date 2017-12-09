@@ -1,1 +1,34 @@
-<h3>lol</h3>
+<div class="right-align">
+  <button data-target="create-new-jogging-time" class="waves-effect waves-light btn modal-trigger">Add New Jogging Time</button>
+</div>
+<ul class="collection jogging-times-list infinite-list" data-load-more="<%= root_path %>" data-load-more-callback="loadMoreJoggingTimes">
+  <%= render 'jogging_times/jogging_times_list', pagination: @pagination %>
+</ul>
+
+<div id="create-new-jogging-time" class="modal">
+  <div class="modal-content">
+    <h4>Create New Jogging Time</h4>
+
+    <%= form_tag jogging_times_path, class: 'submittable-form', data: {callback: 'newJoggingTime'} do %>
+        <div class="row">
+          <div class="input-field col m6">
+            <label for="date">Date</label>
+            <%= text_field_tag :date, nil, class: 'datepicker' %>
+          </div>
+          <div class="input-field col m6">
+            <label for="hour">Time</label>
+            <%= text_field_tag :hour, nil, class: 'timepicker' %>
+          </div>
+          <div class="input-field col m6">
+            <label for="distance">Distance</label>
+            <%= number_field_tag :distance, nil %>
+          </div>
+          <div class="input-field col m6">
+            <label for="time">Duration</label>
+            <%= number_field_tag :time, nil %>
+          </div>
+        </div>
+        <button class="waves-effect waves-light btn right">Save</button>
+  <% end %>
+  </div>
+</div>

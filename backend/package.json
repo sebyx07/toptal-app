@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "jquery-form-validator": "^2.3.77",
+    "moment": "^2.19.3",
     "toastr": "^2.1.2"
   }
 }
