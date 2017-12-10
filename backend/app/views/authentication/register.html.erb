@@ -1,8 +1,8 @@
 <div class="row authentication">
   <div class="col s12 m4 offset-m4">
-    <h3>Login Jogging</h3>
+    <h3>Register Jogging</h3>
 
-    <%= form_tag authentication_login_post_path do %>
+    <%= form_tag authentication_register_post_path do %>
         <div class="row">
           <div class="input-field col s12">
             <label for="username">Username</label>
@@ -16,8 +16,15 @@
             <%= password_field_tag :password, nil, class: 'validate', required: true%>
           </div>
         </div>
-        <%= link_to 'Register New Account', authentication_register_path %>
-        <button class="waves-effect waves-light btn right">Login</button>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <label for="password">Repeat Password</label>
+            <%= password_field_tag :password_repeat, nil, class: 'validate', required: true%>
+          </div>
+        </div>
+        <%= link_to 'Login', authentication_login_path %>
+        <button class="waves-effect waves-light btn right">Register</button>
     <% end %>
   </div>
 </div>

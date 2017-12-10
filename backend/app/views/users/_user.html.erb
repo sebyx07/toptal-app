@@ -1,0 +1,24 @@
+<li class="collection-item row" data-id="<%= user.id %>">
+  <%= form_tag user_path(user), class: 'auto-submit', method: :put, data: { callback: 'updateUser' } do %>
+      <div class="input-field col m2 s6">
+        <label for="username">Username</label>
+        <%= text_field_tag :username, user.username %>
+      </div>
+
+      <div class="input-field col m2 s6">
+        <%= select_tag :role, options_for_select(User.roles.map {|k, v| [k.humanize, k.humanize.downcase]}, selected: user.role) %>
+        <label for="role">Role</label>
+      </div>
+  <% end %>
+
+  <% if current_admin.present? %>
+    <div class="col m2 s6 input-field">
+      <%= link_to "Login as #{user.username}", user_login_as_user_path(user.id), class: 'waves-effect waves-light btn', method: :post %>
+    </div>
+  <% end %>
+
+  <div class="col m2 s6 right">
+    <%= link_to 'Delete', user_path(user), class: 'waves-effect waves-light btn red',
+                method: :delete, data: {turbolinks: false, remote: true, callback: 'deleteListItem', message: 'Deleted!'} %>
+  </div>
+</li>

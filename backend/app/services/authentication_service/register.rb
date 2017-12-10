@@ -29,13 +29,13 @@ module AuthenticationService
 
     def unique_username
       if User.find_by(username: username)
-        errors.add(:username, 'exista utilizator cu acest username deja')
+        errors.add(:username, 'There is already a user with that username')
       end
     end
 
     def passwords_match
       if password != password_repeat
-        errors.add(:password_repeat, 'Parolele nu se potrivesc')
+        errors.add(:password_repeat, "Passwords don't match")
       end
     end
   end

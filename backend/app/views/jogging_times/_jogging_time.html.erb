@@ -1,30 +1,30 @@
-<li class="collection-item row">
-  <%= form_tag jogging_time_path(jogging_time), class: 'auto-submit', method: :put do %>
-      <div class="input-field col m2">
+<li class="collection-item row" data-id="<%= jogging_time.id %>">
+  <%= form_tag jogging_time_path(jogging_time), class: 'auto-submit', method: :put, data: { callback: 'updateJoggingTime' } do %>
+      <div class="input-field col m2 s6">
         <label for="date">Date</label>
         <%= text_field_tag :date, jogging_time.created_at.strftime('%d %B, %Y'), class: 'datepicker' %>
       </div>
-      <div class="input-field col m1">
+      <div class="input-field col m2 s6">
         <label for="hour">Time</label>
         <%= text_field_tag :hour, jogging_time.created_at.strftime('%H:%M'), class: 'timepicker' %>
       </div>
-      <div class="input-field col m1">
-        <label for="distance">Distance</label>
+      <div class="input-field col m2 s6">
+        <label for="distance">Distance In KM</label>
         <%= number_field_tag :distance, jogging_time.distance %>
       </div>
-      <div class="input-field col m1">
-        <label for="time">Duration</label>
+      <div class="input-field col m2 s6">
+        <label for="time">Duration In Minutes</label>
         <%= number_field_tag :time, jogging_time.time %>
       </div>
   <% end %>
 
-  <div class="col m2">
+  <div class="col m2 s6">
     <p>
-      Average Speed: <b><%= jogging_time.average_speed %></b>
+      Average Speed: <b><%= jogging_time.average_speed %> KM/H</b>
     </p>
   </div>
 
-  <div class="col m2 right">
+  <div class="col m2 s6 right">
     <%= link_to 'Delete', jogging_time_path(jogging_time), class: 'waves-effect waves-light btn red',
                 method: :delete, data: {turbolinks: false, remote: true, callback: 'deleteListItem', message: 'Deleted!'} %>
   </div>

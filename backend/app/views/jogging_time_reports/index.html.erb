@@ -1,0 +1,25 @@
+<%= form_tag jogging_time_report_path(@report.id), class: 'row auto-submit', method: :get, data: { callback: 'generateJoggingTimeReport', 'success-message': 'Raport Generated' } do %>
+    <div class="input-field col m4">
+      <label for="to_date">Generate Report From</label>
+      <%= text_field_tag :to_date, @report.to_date.strftime('%Y-%m-%d'), class: 'datepicker' %>
+    </div>
+<% end %>
+
+<table class="jogging-reports">
+  <thead>
+  <tr>
+    <th>
+      Report From
+    </th>
+    <th>
+      Average Speed
+    </th>
+    <th>
+      Total Distance
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+    <%= render 'jogging_time_reports/report', report: @report %>
+  </tbody>
+</table>

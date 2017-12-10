@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col s12 right-align">
+    <button data-target="create-new-user" class="waves-effect waves-light btn modal-trigger">Add New User</button>
+  </div>
+</div>
+
+<ul class="collection users-list infinite-list" data-load-more="<%= users_path %>" data-load-more-callback="loadMoreUsers">
+  <%= render 'users/users_list', pagination: @pagination %>
+</ul>
+
+<div id="create-new-user" class="modal">
+  <div class="modal-content">
+    <h4>Create New User</h4>
+    <%= form_tag users_path, class: 'submittable-form', data: {callback: 'newUser'} do %>
+      <div class="row">
+        <div class="input-field col m6">
+          <label for="username">Username</label>
+          <%= text_field_tag :username, nil %>
+        </div>
+
+        <div class="input-field col m6">
+          <label for="password">Password</label>
+          <%= password_field_tag :password, nil %>
+        </div>
+
+        <div class="input-field col m6">
+          <label for="password_repeat">Repeat The Password</label>
+          <%= password_field_tag :password_repeat, nil %>
+        </div>
+
+        <div class="input-field col m6">
+          <%= select_tag :role, options_for_select(User.roles.map {|k, v| [k.humanize, k.humanize.downcase]}) %>
+          <label for="role">Role</label>
+        </div>
+      </div>
+      <button class="waves-effect waves-light btn right">Save</button>
+  <% end %>
+  </div>
+</div>

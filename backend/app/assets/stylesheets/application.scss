@@ -4,4 +4,5 @@ $primary-color: #26a69a !default;
 $secondary-color: #26a69a !default;
 @import "materialize";
 @import "../../../node_modules/toastr/toastr";
+@import "media_queries";
 @import "app/*";

@@ -11,6 +11,11 @@ onPageLoad('.infinite-list', function ($el) {
       var url = loadMoreUrl + '?pagination=true';
       var nextPage = currentPage + 1;
       url += '&page=' + nextPage;
+      var queryString = $el.data('query-string');
+      if(queryString){
+        url += queryString;
+      }
+
       $.ajax({
         url: url,
         success: function (data) {
@@ -20,7 +25,7 @@ onPageLoad('.infinite-list', function ($el) {
             loadMore = true;
           }
         }
-      })
+      });
     }
   });
 });

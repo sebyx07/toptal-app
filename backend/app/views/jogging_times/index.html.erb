@@ -1,5 +1,26 @@
-<div class="right-align">
-  <button data-target="create-new-jogging-time" class="waves-effect waves-light btn modal-trigger">Add New Jogging Time</button>
+<div class="row">
+  <div class="col s6">
+    <%= form_tag root_path, class: 'filter-jogging-times' do%>
+      <div class="row">
+        <div class="input-field col m3">
+          <label for="date">From Date</label>
+          <%= text_field_tag :from_date, nil, class: 'datepicker' %>
+        </div>
+
+        <div class="input-field col m3">
+          <label for="date">To Date</label>
+          <%= text_field_tag :to_date, nil, class: 'datepicker' %>
+        </div>
+
+        <div class="input-field col m3">
+          <button class="waves-effect waves-light btn right">Filter</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col s6 right-align">
+    <button data-target="create-new-jogging-time" class="waves-effect waves-light btn modal-trigger">Add New Jogging Time</button>
+  </div>
 </div>
 <ul class="collection jogging-times-list infinite-list" data-load-more="<%= root_path %>" data-load-more-callback="loadMoreJoggingTimes">
   <%= render 'jogging_times/jogging_times_list', pagination: @pagination %>

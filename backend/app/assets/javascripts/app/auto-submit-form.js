@@ -1,5 +1,5 @@
 var saveForm = function ($el, cb) {
-  var method = $el.find('input[name="_method"]').val() || 'post';
+  var method = $el.find('input[name="_method"]').val() || $el.attr('method') || 'post';
   var url = $el.attr('action');
   $.ajax({
     type: method,
@@ -7,10 +7,7 @@ var saveForm = function ($el, cb) {
     data: $el.serialize(),
     success: function(data)
     {
-      var message = 'Saved!';
-      if(data && data.message){
-        message = data.message;
-      }
+      var message = $el.data('success-message') || 'Saved!';
       toastr.success(message);
       if(cb){
         cb(data);
@@ -29,9 +26,14 @@ onPageLoad('form.auto-submit', function ($els) {
 window.autoSubmitForm = function ($els) {
   $els.each(function () {
     var $el = $(this);
+    var callback = $el.data('callback');
     $el.submit(function (e) {
       e.preventDefault();
-      saveForm($el);
+      saveForm($el, function (data) {
+        if(callback){
+          window[callback]($el, data);
+        }
+      });
     });
 
     var handleChange= function ($input) {
@@ -40,7 +42,11 @@ window.autoSubmitForm = function ($els) {
         return true;
       }
       $input.attr('value', $input.val());
-      saveForm($el);
+      saveForm($el, function (data) {
+        if(callback){
+          window[callback]($el, data);
+        }
+      });
     };
 
     $el.find('input').focusout(function () {
@@ -51,6 +57,11 @@ window.autoSubmitForm = function ($els) {
 
     $timePickers.off('focusout');
     $timePickers.change(function () {
+      handleChange($(this));
+    });
+
+    var $select = $el.find('select');
+    $select.change(function () {
       handleChange($(this));
     });
   });

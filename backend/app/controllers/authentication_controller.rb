@@ -8,7 +8,6 @@ class AuthenticationController < ApplicationController
       flash[:success] = 'Welcome'
       redirect_to_dashboard(login.user)
     else
-      flash[:error] = 'Incorrect Login'
       render :login
     end
   end
@@ -21,54 +20,43 @@ class AuthenticationController < ApplicationController
 
     if register.user
       set_session(register.user)
-      flash[:success] = 'Welcome'
-      redirect_to dashboard_path
+      redirect_to root_path
     else
-      flash[:error] = register.errors.full_messages
       render :register
     end
   end
 
   def logout
     session[:user_id] = nil
-    if session[:staff_id].present?
-      session[:staff_id] = nil
-    end
-    redirect_to authentication_login_path
-  end
-
-  def change_password
-    change_password_service = AuthenticationService::ChangePassword.new(params, current_user).process
-    if change_password_service.changed
-      flash[:success] = 'Parola A Fost Schimbata'
+    flash[:success] = 'Logged out'
+    if current_admin.present?
+      redirect_to users_path
     else
-      flash[:error] = change_password_service
-    end
-    redirect_to dashboard_users_path
-  end
-
-  def _verify_recaptcha
-    return if Rails.env.test?
-    unless verify_recaptcha
-      flash[:error] = 'Recaptcha Invalida'
       redirect_to authentication_login_path
     end
   end
 
+  def logout_admin
+    session[:admin_id] = nil
+    flash[:success] = 'Logged out from admin'
+    redirect_to authentication_login_path
+  end
+
   def redirect_to_dashboard(user=current_user)
     return if user.nil?
+
     if user.basic?
-      redirect_to dashboard_path
-    elsif user.staff? || user.admin?
-      redirect_to staff_path
+      redirect_to root_path
+    else
+      redirect_to users_path
     end
   end
 
   def set_session(user)
-    if user.basic?
+    if user.basic? || user.manager?
       session[:user_id] = user.id
-    else
-      session[:staff_id] = user.id
+    elsif user.admin?
+      session[:admin_id] = user.id
     end
   end
 end
